@@ -103,7 +103,7 @@ public static String sucursalglobal="";
 
             int n = ps.executeUpdate();
             if (n > 0) {
-                JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
+              //  JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
                 st.close();
                 //  limpiarcampos();
             }
@@ -128,21 +128,22 @@ public static String sucursalglobal="";
 
                    int n = ps.executeUpdate();
                    if (n > 0) {
-                     JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
+                    // JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
                        st.close();
                        //  limpiarcampos();
                    }
                } catch (HeadlessException | SQLException ex) {
                    JOptionPane.showMessageDialog(rootPane, "Error en la base de datos con ventaspagos" + ex);
                } catch (ClassNotFoundException ex) {
-                   Logger.getLogger(CambiaVenta.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CambiaVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void modificacionescancelaciones() {
         try {
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String f2 = sdf.format(txtfecha2.getDate());
-        String f1 = sdf.format(txtfecha1.getDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String f2 = sdf.format(txtfecha2.getDate());
+            String f1 = sdf.format(txtfecha1.getDate());
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
@@ -151,7 +152,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             int n = ps.executeUpdate();
             if (n > 0) {
-                 JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
+                //     JOptionPane.showMessageDialog(null, "¡Los ventas han sido cambiadas exitósamente!");
                 st.close();
                 //  limpiarcampos();
             }
@@ -163,11 +164,11 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     }
 
-    public void devoluciones() {
+        public void devoluciones() {
         try {
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String f2 = sdf.format(txtfecha2.getDate());
-        String f1 = sdf.format(txtfecha1.getDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String f2 = sdf.format(txtfecha2.getDate());
+            String f1 = sdf.format(txtfecha1.getDate());
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
@@ -176,7 +177,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             int n = ps.executeUpdate();
             if (n > 0) {
-               JOptionPane.showMessageDialog(null, "¡Las devoluciones han sido cambiadas exitósamente!");
+                //   JOptionPane.showMessageDialog(null, "¡Las devoluciones han sido cambiadas exitósamente!");
                 st.close();
                 //  limpiarcampos();
             }
@@ -204,7 +205,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             int n = ps.executeUpdate();
             if (n > 0) {
-                   JOptionPane.showMessageDialog(null, "se completo el respaldo ventas");
+                //        JOptionPane.showMessageDialog(null, "se completo el respaldo ventas");
                 st.close();
                 //  limpiarcampos();
             }
@@ -229,7 +230,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             //         System.out.println("--->"+ps);
             int n = ps.executeUpdate();
             if (n > 0) {
-               JOptionPane.showMessageDialog(null, "¡se completo el resplado ventaspagos!");
+                //  JOptionPane.showMessageDialog(null, "¡se completo el resplado ventaspagos!");
                 st.close();
                 //  limpiarcampos();
             }
@@ -254,7 +255,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
           // System.out.println("--->"+ps);
             int n = ps.executeUpdate();
             if (n > 0) {
-             JOptionPane.showMessageDialog(null, "¡se completo el respaldo modificacionescancelaciones !");
+            // JOptionPane.showMessageDialog(null, "¡se completo el respaldo modificacionescancelaciones !");
                 st.close();
                 //  limpiarcampos();
             }
@@ -306,7 +307,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             int n = ps.executeUpdate();
             if (n > 0) {
-                JOptionPane.showMessageDialog(null, "¡se completo borrarmodificacionescancelcaciones!");
+               // JOptionPane.showMessageDialog(null, "¡se completo borrarmodificacionescancelcaciones!");
                 st.close();
                 //  limpiarcampos();
             }
@@ -475,7 +476,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 while (rs.next()) {
                     //  System.out.println( rs.getInt(1)+ rs.getInt(2)+ rs.getString(3).trim()+ rs.getDouble(4)
                     //         + rs.getString(5).trim()+ rs.getString(6).trim());
-                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),"$" +  rs.getString(7), rs.getString(8), rs.getString(9)};
+                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), "$" + rs.getString(7), rs.getString(8), rs.getString(9)};
                     md.addRow(fila);
                 }
                 int cont = md.getRowCount();

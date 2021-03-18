@@ -6,6 +6,9 @@
 package cambiaventas;
 
 import java.awt.Color;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,6 +45,7 @@ public static String tienda="";
         lblconexion = new javax.swing.JLabel();
         btndesconectar = new javax.swing.JButton();
         btncontinuar = new javax.swing.JToggleButton();
+        btnavanzado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Seleccion Menu");
@@ -83,7 +87,7 @@ public static String tienda="";
         getContentPane().add(btnconectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 130, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/logochico.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 200, 220));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 190, 190));
 
         jLabel2.setText("Ver 1.0");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 60, -1));
@@ -113,6 +117,15 @@ public static String tienda="";
             }
         });
         getContentPane().add(btncontinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 70, 40));
+
+        btnavanzado.setText("jButton1");
+        btnavanzado.setContentAreaFilled(false);
+        btnavanzado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnavanzadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 220, 190));
 
         pack();
         setLocationRelativeTo(null);
@@ -191,9 +204,13 @@ public static String tienda="";
     }//GEN-LAST:event_btndesconectarActionPerformed
 
     private void btncontinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuarActionPerformed
+    try {
         CambiaVenta cv = new CambiaVenta();
         cv.setVisible(true);
         this.dispose();
+    } catch (ParseException ex) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
 
 
     }//GEN-LAST:event_btncontinuarActionPerformed
@@ -201,6 +218,14 @@ public static String tienda="";
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jctiendasActionPerformed
+
+    private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
+
+        MenuAvanzado ma = new MenuAvanzado();
+        ma.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnavanzadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +263,7 @@ public static String tienda="";
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncapturar3;
     private javax.swing.JButton btnconectar;
     private javax.swing.JToggleButton btncontinuar;
