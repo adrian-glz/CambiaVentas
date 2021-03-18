@@ -5,6 +5,21 @@
  */
 package cambiaventas;
 
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.HeadlessException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
+
 /**
  *
  * @author agonzalez
@@ -29,40 +44,179 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
         jLabel8 = new javax.swing.JLabel();
         txtsucursal = new javax.swing.JLabel();
+        btnlistacodigos = new javax.swing.JButton();
+        btncargaperiodo = new javax.swing.JButton();
+        jtfecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Conectado a:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 90, 30));
 
         txtsucursal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtsucursal.setForeground(new java.awt.Color(0, 51, 204));
         txtsucursal.setText(" ");
+        getContentPane().add(txtsucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 150, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(7, 7, 7)
-                .addComponent(txtsucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtsucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(350, Short.MAX_VALUE))
-        );
+        btnlistacodigos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btnlistacodigos.setText("Correr Lista codigos");
+        btnlistacodigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlistacodigosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlistacodigos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 270, 50));
+
+        btncargaperiodo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btncargaperiodo.setText("Correr carga periodo dos meses");
+        btncargaperiodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncargaperiodoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btncargaperiodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 270, 50));
+
+        jtfecha.setDateFormatString("yyyy/MM/dd");
+        jtfecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtfecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfechaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfechaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfechaKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 270, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnlistacodigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistacodigosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlistacodigosActionPerformed
+
+    private void btncargaperiodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargaperiodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btncargaperiodoActionPerformed
+
+    private void jtfechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (JOptionPane.showConfirmDialog(null, " Estas seguro de procesar con la fecha seleccionada ", " ATENCION!!! ",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+            procesar();
+
+        } else {
+
+        }
+
+        }
+    }//GEN-LAST:event_jtfechaKeyPressed
+
+    private void jtfechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyReleased
+        String jc = jtfecha.getDateFormatString().toString();
+        System.out.println("mames"+jc);
+        btnprocesar.setEnabled(
+            jc.length() != 0
+        );
+    }//GEN-LAST:event_jtfechaKeyReleased
+
+    private void jtfechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyTyped
+
+    }//GEN-LAST:event_jtfechaKeyTyped
+ public void procesar() {
+    //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de Inventario", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando inventario. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+             
+                int nren; 
+        
+        
+        ///////////PROGRESSSBARRRR
+        
+        
+        
+        
+     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+          String F = sdf.format(jtfecha.getDate());
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + sucursalglobal + "", "usounds", "madljda");
+            st = conexion.createStatement();
+          
+            rs = st.executeQuery("delete from invent; insert into invent (codigo, cantidad) "
+                    + "select codigo, sum(cantidad) as cantidad from InventoryAudit where fecha >= '" + F + "' group by codigo; "
+                    + "exec spp_cargaperiodosdosmeses; "
+                    + "declare @tcv as float; "
+                    + "set @tcv = (select TipoCambioVenta from infor); "
+                    + "exec spp_ADiferenciasDeInventario @tcv");
+           
+            
+            int c=0;
+             while (!(rs.isAfterLast())) {      
+                        System.out.println("##"+rs.next()+" >"+c);
+                  c=c+1;
+                    }
+             
+               } catch (HeadlessException | NumberFormatException | SQLException e) {
+            String respuesta = "The executeQuery method must return a result set.";
+            if (respuesta.equals(e.getMessage())) {
+                progressBar.setIndeterminate(false);///PROGRESSBAR
+                dialog.dispose();//PROGRESSBAR
+                JOptionPane.showMessageDialog(null, "Se ha procesado de manera exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+            }
+              
+        } catch (ClassNotFoundException ex) {     
+            Logger.getLogger(Procesar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+           nren=0;
+          
+
+                ///////////////////////
+              
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();    
+        dialog.setVisible(true);                  
+//<PROGRESSBAR
+     
+    
+ }
     /**
      * @param args the command line arguments
      */
@@ -99,7 +253,10 @@ public class MenuAvanzado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btncargaperiodo;
+    private javax.swing.JButton btnlistacodigos;
     private javax.swing.JLabel jLabel8;
+    private com.toedter.calendar.JDateChooser jtfecha;
     private javax.swing.JLabel txtsucursal;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,7 +45,6 @@ public static String tienda="";
         lblconexion = new javax.swing.JLabel();
         btndesconectar = new javax.swing.JButton();
         btncontinuar = new javax.swing.JToggleButton();
-        btnavanzado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Seleccion Menu");
@@ -117,15 +116,6 @@ public static String tienda="";
             }
         });
         getContentPane().add(btncontinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 70, 40));
-
-        btnavanzado.setText("jButton1");
-        btnavanzado.setContentAreaFilled(false);
-        btnavanzado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnavanzadoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 220, 190));
 
         pack();
         setLocationRelativeTo(null);
@@ -219,14 +209,6 @@ public static String tienda="";
         // TODO add your handling code here:
     }//GEN-LAST:event_jctiendasActionPerformed
 
-    private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
-
-        MenuAvanzado ma = new MenuAvanzado();
-        ma.setVisible(true);
-        this.dispose();
-        
-    }//GEN-LAST:event_btnavanzadoActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -263,7 +245,6 @@ public static String tienda="";
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncapturar3;
     private javax.swing.JButton btnconectar;
     private javax.swing.JToggleButton btncontinuar;
