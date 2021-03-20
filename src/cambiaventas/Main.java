@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,7 +24,10 @@ public static String tienda="";
      */
     public Main() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
         btncontinuar.setEnabled(false);
+        btnavanzado.setEnabled(false);
+        btnconectar.transferFocus();
     }
 
     /**
@@ -45,6 +49,7 @@ public static String tienda="";
         lblconexion = new javax.swing.JLabel();
         btndesconectar = new javax.swing.JButton();
         btncontinuar = new javax.swing.JToggleButton();
+        btnavanzado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Seleccion Menu");
@@ -70,11 +75,11 @@ public static String tienda="";
                 jctiendasActionPerformed(evt);
             }
         });
-        getContentPane().add(jctiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 250, 37));
+        getContentPane().add(jctiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 250, 37));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Trabajar en:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 80, 37));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 80, 37));
 
         btnconectar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnconectar.setText("Conectar");
@@ -83,22 +88,23 @@ public static String tienda="";
                 btnconectarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnconectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 130, 30));
+        getContentPane().add(btnconectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 130, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/logochico.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 190, 190));
+        jLabel3.setInheritsPopupMenu(false);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 190, 190));
 
         jLabel2.setText("Ver 1.0");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 60, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 60, -1));
 
         lblconexions.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblconexions.setText("Estatus :");
-        getContentPane().add(lblconexions, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 60, 20));
+        getContentPane().add(lblconexions, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 60, 20));
 
         lblconexion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblconexion.setForeground(new java.awt.Color(255, 51, 51));
         lblconexion.setText("Desconectado");
-        getContentPane().add(lblconexion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 130, 20));
+        getContentPane().add(lblconexion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 130, 20));
 
         btndesconectar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btndesconectar.setText("Desconectar");
@@ -107,7 +113,7 @@ public static String tienda="";
                 btndesconectarActionPerformed(evt);
             }
         });
-        getContentPane().add(btndesconectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 120, 30));
+        getContentPane().add(btndesconectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 120, 30));
 
         btncontinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/derecha.png"))); // NOI18N
         btncontinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +121,22 @@ public static String tienda="";
                 btncontinuarActionPerformed(evt);
             }
         });
-        getContentPane().add(btncontinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 70, 40));
+        getContentPane().add(btncontinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 60, 40));
+
+        btnavanzado.setText(" ");
+        btnavanzado.setBorder(null);
+        btnavanzado.setBorderPainted(false);
+        btnavanzado.setContentAreaFilled(false);
+        btnavanzado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnavanzado.setDefaultCapable(false);
+        btnavanzado.setFocusPainted(false);
+        btnavanzado.setVerifyInputWhenFocusTarget(false);
+        btnavanzado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnavanzadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 240, 200));
 
         pack();
         setLocationRelativeTo(null);
@@ -167,6 +188,7 @@ public static String tienda="";
         }
 
         btncontinuar.setEnabled(true);
+        btnavanzado.setEnabled(true);
         jctiendas.setEnabled(false);
         lblconexion.setText("CONECTADO");
         lblconexion.setForeground(Color.GREEN);
@@ -184,6 +206,7 @@ public static String tienda="";
         // TODO add your handling code here:
 
         jctiendas.setEnabled(true);
+          btnavanzado.setEnabled(false);
         lblconexion.setText("DESCONECTADO");
         lblconexion.setForeground(Color.red);
         btnconectar.setEnabled(true);
@@ -208,6 +231,12 @@ public static String tienda="";
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jctiendasActionPerformed
+
+    private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
+        MenuAvanzado m = new MenuAvanzado();
+        m.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_btnavanzadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,6 +274,7 @@ public static String tienda="";
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncapturar3;
     private javax.swing.JButton btnconectar;
     private javax.swing.JToggleButton btncontinuar;

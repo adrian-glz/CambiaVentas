@@ -5,15 +5,22 @@
  */
 package cambiaventas;
 
+import static cambiaventas.Main.IPSUCURSAL;
+import static cambiaventas.Main.sucursalnombre;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,6 +38,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
      */
     public MenuAvanzado() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
+        txtsucursal.setText("" + sucursalnombre);
+        txtsucursal.setForeground(Color.blue);
     }
 
     /**
@@ -46,19 +56,22 @@ public class MenuAvanzado extends javax.swing.JFrame {
         txtsucursal = new javax.swing.JLabel();
         btnlistacodigos = new javax.swing.JButton();
         btncargaperiodo = new javax.swing.JButton();
-        jtfecha = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Avanzado");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Conectado a:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 90, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 100, 30));
 
         txtsucursal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtsucursal.setForeground(new java.awt.Color(0, 51, 204));
         txtsucursal.setText(" ");
-        getContentPane().add(txtsucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 150, 30));
+        getContentPane().add(txtsucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 170, 30));
 
         btnlistacodigos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnlistacodigos.setText("Correr Lista codigos");
@@ -67,7 +80,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 btnlistacodigosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlistacodigos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 270, 50));
+        getContentPane().add(btnlistacodigos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 270, 50));
 
         btncargaperiodo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btncargaperiodo.setText("Correr carga periodo dos meses");
@@ -76,65 +89,33 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 btncargaperiodoActionPerformed(evt);
             }
         });
-        getContentPane().add(btncargaperiodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 270, 50));
+        getContentPane().add(btncargaperiodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 270, 50));
 
-        jtfecha.setDateFormatString("yyyy/MM/dd");
-        jtfecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jtfecha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtfechaKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtfechaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfechaKeyTyped(evt);
+        jLabel1.setText("     ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 324, -1, 20));
+
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jtfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 270, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 270, 40));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlistacodigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistacodigosActionPerformed
-        // TODO add your handling code here:
+        listacodigostmp();
+
     }//GEN-LAST:event_btnlistacodigosActionPerformed
-
-    private void btncargaperiodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargaperiodoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncargaperiodoActionPerformed
-
-    private void jtfechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (JOptionPane.showConfirmDialog(null, " Estas seguro de procesar con la fecha seleccionada ", " ATENCION!!! ",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-            procesar();
-
-        } else {
-
-        }
-
-        }
-    }//GEN-LAST:event_jtfechaKeyPressed
-
-    private void jtfechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyReleased
-        String jc = jtfecha.getDateFormatString().toString();
-        System.out.println("mames"+jc);
-        btnprocesar.setEnabled(
-            jc.length() != 0
-        );
-    }//GEN-LAST:event_jtfechaKeyReleased
-
-    private void jtfechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfechaKeyTyped
-
-    }//GEN-LAST:event_jtfechaKeyTyped
- public void procesar() {
-    //**************PROGRESSS BAR
+    public void cargaperiododosmeses() {
+        //**************PROGRESSS BAR
         String cval;
         int nval;
 
-        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de Inventario", true);
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
         Thread runnable_progress = new Thread() {
             public void run() {
                 JTextArea msgLabel;
@@ -143,7 +124,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 JPanel panel;
                 progressBar = new JProgressBar(0, MAXIMUM);
                 progressBar.setIndeterminate(true);
-                msgLabel = new JTextArea("Procesando inventario. Por favor espere...");
+                msgLabel = new JTextArea("Ejecutando Periodo dos meses. Por favor espere...");
                 msgLabel.setEditable(false);
                 panel = new JPanel(new BorderLayout(5, 5));
                 panel.add(msgLabel, BorderLayout.PAGE_START);
@@ -158,65 +139,424 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 dialog.setAlwaysOnTop(false);
                 msgLabel.setBackground(panel.getBackground());
                 ///////////////////////        
-             
-                int nren; 
-        
-        
-        ///////////PROGRESSSBARRRR
-        
-        
-        
-        
-     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-          String F = sdf.format(jtfecha.getDate());
-        try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + sucursalglobal + "", "usounds", "madljda");
-            st = conexion.createStatement();
-          
-            rs = st.executeQuery("delete from invent; insert into invent (codigo, cantidad) "
-                    + "select codigo, sum(cantidad) as cantidad from InventoryAudit where fecha >= '" + F + "' group by codigo; "
-                    + "exec spp_cargaperiodosdosmeses; "
-                    + "declare @tcv as float; "
-                    + "set @tcv = (select TipoCambioVenta from infor); "
-                    + "exec spp_ADiferenciasDeInventario @tcv");
-           
-            
-            int c=0;
-             while (!(rs.isAfterLast())) {      
-                        System.out.println("##"+rs.next()+" >"+c);
-                  c=c+1;
-                    }
-             
-               } catch (HeadlessException | NumberFormatException | SQLException e) {
-            String respuesta = "The executeQuery method must return a result set.";
-            if (respuesta.equals(e.getMessage())) {
-                progressBar.setIndeterminate(false);///PROGRESSBAR
-                dialog.dispose();//PROGRESSBAR
-                JOptionPane.showMessageDialog(null, "Se ha procesado de manera exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                int nren;
+                ///////////PROGRESSSBARRRR
+               try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
 
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
-            }
-              
-        } catch (ClassNotFoundException ex) {     
-            Logger.getLogger(Procesar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-           nren=0;
-          
+                    ResultSet rs = st.executeQuery("cml.dbo.spp_CargaPeriodosDosMeses");
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                      JOptionPane.showMessageDialog(null, "Se ha corrido Carga periodo dos meses correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                listacredito();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                nren = 0;
 
                 ///////////////////////
-              
             }
         };
         ///PROGRESSBAR>
-        runnable_progress.start();    
-        dialog.setVisible(true);                  
+        runnable_progress.start();
+        dialog.setVisible(true);
+        //<PROGRESSBAR
+
+    }
+    private void btncargaperiodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargaperiodoActionPerformed
+      cargaperiododosmeses();
+    }//GEN-LAST:event_btncargaperiodoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Main m = new Main();
+        m.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public void listacodigostmp() {
+        //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando listacodigostpm. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+                int nren;
+                ///////////PROGRESSSBARRRR
+               try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
+
+                    ResultSet rs = st.executeQuery(" cml.dbo.spp_ListaCodigosTmp");
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                   //     JOptionPane.showMessageDialog(null, "Se ha corrido listacodigos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                listacredito();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                nren = 0;
+
+                ///////////////////////
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();
+        dialog.setVisible(true);
 //<PROGRESSBAR
-     
-    
- }
+
+    }
+
+    public void listacredito() {
+        //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando listacredito. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+
+                int nren;
+
+        ///////////PROGRESSSBARRRR
+                System.out.println("808" + IPSUCURSAL);
+                try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
+
+                    ResultSet rs = st.executeQuery(" cml.dbo.spp_ListaCodigosCredito "
+                    );
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                     //   JOptionPane.showMessageDialog(null, "Se ha corrido lista credito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                        listacodigoapartados();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                nren = 0;
+
+                ///////////////////////
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();
+        dialog.setVisible(true);
+//<PROGRESSBAR
+
+    }
+
+    public void listacodigoapartados() {
+        //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando lista codigo apartados. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+
+                int nren;
+
+                ///////////PROGRESSSBARRRR
+                try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
+
+                    ResultSet rs = st.executeQuery(" cml.dbo.spp_ListaCodigosApartados");
+                    System.out.println("810");
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                       // JOptionPane.showMessageDialog(null, "Se ha corrido lista codigos apartados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                         listacodigosusadoscompra();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                nren = 0;
+
+                ///////////////////////
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();
+        dialog.setVisible(true);
+//<PROGRESSBAR
+
+    }
+
+    public void listacodigosusadoscompra() {
+        //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando lista CodigosUsadosCompraTmp. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+
+                int nren;
+
+                System.out.println("808" + IPSUCURSAL);
+                try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
+
+                    ResultSet rs = st.executeQuery(" cml.dbo.spp_ListaCodigosUsadosCompraTmp"
+                    );
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                       // JOptionPane.showMessageDialog(null, "Se ha corrido lista codigos usados compra", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                listacodigosusadosventa();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                nren = 0;
+                ///////////////////////
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();
+        dialog.setVisible(true);
+//<PROGRESSBAR
+
+    }
+
+    public void listacodigosusadosventa() {
+        //**************PROGRESSS BAR
+        String cval;
+        int nval;
+
+        final JDialog dialog = new JDialog(Frame.getFrames()[0], "Sistema de actualiza ventas", true);
+        Thread runnable_progress = new Thread() {
+            public void run() {
+                JTextArea msgLabel;
+                JProgressBar progressBar;
+                final int MAXIMUM = 100;
+                JPanel panel;
+                progressBar = new JProgressBar(0, MAXIMUM);
+                progressBar.setIndeterminate(true);
+                msgLabel = new JTextArea("Procesando lista codigosusadosventa. Por favor espere...");
+                msgLabel.setEditable(false);
+                panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(msgLabel, BorderLayout.PAGE_START);
+                panel.add(progressBar, BorderLayout.CENTER);
+                panel.setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+                dialog.getContentPane().add(panel);
+                dialog.setResizable(false);
+                dialog.pack();
+                dialog.setSize(500, dialog.getHeight());
+                dialog.setLocationRelativeTo(null);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.setAlwaysOnTop(false);
+                msgLabel.setBackground(panel.getBackground());
+                ///////////////////////        
+                int nren;
+
+           ///////////PROGRESSSBARRRR
+                System.out.println("808" + IPSUCURSAL);
+                try {
+                    System.out.println("809");
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+                    Statement st = conexion.createStatement();
+
+                    ResultSet rs = st.executeQuery("cml.dbo.spp_ListaCodigosUsadosVentaTmp");
+
+                    int c = 0;
+                    while (!(rs.isAfterLast())) {
+                        System.out.println("##" + rs.next() + " >" + c);
+                        c = c + 1;
+                    }
+
+                } catch (HeadlessException | NumberFormatException | SQLException e) {
+                    String respuesta = "The executeQuery method must return a result set.";
+                    if (respuesta.equals(e.getMessage())) {
+                        progressBar.setIndeterminate(false);///PROGRESSBAR
+                        dialog.dispose();//PROGRESSBAR
+                        JOptionPane.showMessageDialog(null, "Se ha finalizado el proceso", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MenuAvanzado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                nren = 0;
+            }
+        };
+        ///PROGRESSBAR>
+        runnable_progress.start();
+        dialog.setVisible(true);
+        //<PROGRESSBAR
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -255,8 +595,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncargaperiodo;
     private javax.swing.JButton btnlistacodigos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
-    private com.toedter.calendar.JDateChooser jtfecha;
     private javax.swing.JLabel txtsucursal;
     // End of variables declaration//GEN-END:variables
 }

@@ -211,6 +211,8 @@ public static String sucursalglobal="";
             }
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Error en la base de datos con ventas" + ex);
+            
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CambiaVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -559,7 +561,6 @@ public static String sucursalglobal="";
         jScrollPane2 = new javax.swing.JScrollPane();
         jtventaspagos = new javax.swing.JTable();
         regresar = new javax.swing.JToggleButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cambiar fecha");
@@ -720,14 +721,6 @@ public static String sucursalglobal="";
         });
         getContentPane().add(regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 230, 60));
 
-        jToggleButton1.setText("jToggleButton1");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, -1, -1));
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -811,11 +804,6 @@ public static String sucursalglobal="";
         this.dispose(); 
     }//GEN-LAST:event_regresarActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
-        
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -870,7 +858,6 @@ public static String sucursalglobal="";
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTable jtventas;
     private javax.swing.JTable jtventaspagos;
     private javax.swing.JToggleButton regresar;
