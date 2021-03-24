@@ -192,7 +192,7 @@ public static String tienda="";
         jctiendas.setEnabled(false);
         lblconexion.setText("CONECTADO");
         lblconexion.setForeground(Color.GREEN);
-        System.out.println("conectado a  " + sucursalnombre);
+    //    System.out.println("conectado a  " + sucursalnombre);
         // JOptionPane.showMessageDialog(null, "seleccionaste: " + jcsucursales.getSelectedItem().toString());  
         //     final ImageIcon icon = new ImageIcon("C:\\Users\\AGONZALEZ\\Downloads/correcto.png");
         //   JOptionPane.showMessageDialog(null, "Seleccionaste: "+ jcsucursales.getSelectedItem().toString(), "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -210,7 +210,7 @@ public static String tienda="";
         lblconexion.setText("DESCONECTADO");
         lblconexion.setForeground(Color.red);
         btnconectar.setEnabled(true);
-        System.out.println("Desconectandose de .. " + sucursalnombre);
+     //   System.out.println("Desconectandose de .. " + sucursalnombre);
         IPSUCURSAL = "";
         btncontinuar.setEnabled(false);
 

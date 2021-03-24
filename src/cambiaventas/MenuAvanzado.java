@@ -58,6 +58,8 @@ public class MenuAvanzado extends javax.swing.JFrame {
         btncargaperiodo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        bnteliminafolios = new javax.swing.JButton();
+        btneliminarpoliza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Avanzado");
@@ -66,21 +68,21 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Conectado a:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 100, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, 30));
 
         txtsucursal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtsucursal.setForeground(new java.awt.Color(0, 51, 204));
         txtsucursal.setText(" ");
-        getContentPane().add(txtsucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 170, 30));
+        getContentPane().add(txtsucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 170, 30));
 
         btnlistacodigos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnlistacodigos.setText("Correr Lista codigos");
+        btnlistacodigos.setText("Correr lista codigos");
         btnlistacodigos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlistacodigosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlistacodigos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 270, 50));
+        getContentPane().add(btnlistacodigos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, 50));
 
         btncargaperiodo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btncargaperiodo.setText("Correr carga periodo dos meses");
@@ -89,10 +91,10 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 btncargaperiodoActionPerformed(evt);
             }
         });
-        getContentPane().add(btncargaperiodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 270, 50));
+        getContentPane().add(btncargaperiodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 270, 50));
 
         jLabel1.setText("     ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 324, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 20, 20));
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +102,25 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 270, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 270, 40));
+
+        bnteliminafolios.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        bnteliminafolios.setText("Eliminar folios ");
+        bnteliminafolios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnteliminafoliosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bnteliminafolios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 270, 50));
+
+        btneliminarpoliza.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btneliminarpoliza.setText("Eliminar Poliza");
+        btneliminarpoliza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarpolizaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btneliminarpoliza, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 270, 50));
 
         pack();
         setLocationRelativeTo(null);
@@ -142,7 +162,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 int nren;
                 ///////////PROGRESSSBARRRR
                try {
-                    System.out.println("809");
+                //    System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
@@ -151,7 +171,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                    //    System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -190,6 +210,24 @@ public class MenuAvanzado extends javax.swing.JFrame {
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bnteliminafoliosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnteliminafoliosActionPerformed
+
+        EliminaVentas ev = new EliminaVentas();
+        ev.setVisible(true);
+        this.dispose();
+
+
+        
+    }//GEN-LAST:event_bnteliminafoliosActionPerformed
+
+    private void btneliminarpolizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarpolizaActionPerformed
+       
+        EliminaPolizas ev = new EliminaPolizas();
+        ev.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_btneliminarpolizaActionPerformed
     public void listacodigostmp() {
         //**************PROGRESSS BAR
         String cval;
@@ -222,7 +260,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 int nren;
                 ///////////PROGRESSSBARRRR
                try {
-                    System.out.println("809");
+                   // System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
@@ -231,7 +269,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                     //   System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -295,9 +333,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 int nren;
 
         ///////////PROGRESSSBARRRR
-                System.out.println("808" + IPSUCURSAL);
+                //System.out.println("808" + IPSUCURSAL);
                 try {
-                    System.out.println("809");
+                    //System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
@@ -307,7 +345,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                      //  System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -372,17 +410,17 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                 ///////////PROGRESSSBARRRR
                 try {
-                    System.out.println("809");
+                   // System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
 
                     ResultSet rs = st.executeQuery(" cml.dbo.spp_ListaCodigosApartados");
-                    System.out.println("810");
+                  //  System.out.println("810");
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                       // System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -445,9 +483,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                 int nren;
 
-                System.out.println("808" + IPSUCURSAL);
+                //System.out.println("808" + IPSUCURSAL);
                 try {
-                    System.out.println("809");
+                    //System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
@@ -457,7 +495,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                     //   System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -519,9 +557,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 int nren;
 
            ///////////PROGRESSSBARRRR
-                System.out.println("808" + IPSUCURSAL);
+              //  System.out.println("808" + IPSUCURSAL);
                 try {
-                    System.out.println("809");
+                    //System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
@@ -530,7 +568,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
 
                     int c = 0;
                     while (!(rs.isAfterLast())) {
-                        System.out.println("##" + rs.next() + " >" + c);
+                      //  System.out.println("##" + rs.next() + " >" + c);
                         c = c + 1;
                     }
 
@@ -593,7 +631,9 @@ public class MenuAvanzado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnteliminafolios;
     private javax.swing.JButton btncargaperiodo;
+    private javax.swing.JButton btneliminarpoliza;
     private javax.swing.JButton btnlistacodigos;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
