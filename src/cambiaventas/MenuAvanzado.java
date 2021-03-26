@@ -625,7 +625,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                 try {
                     //    System.out.println("809");
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
-                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + "192.168.1.80.:55024/CML;" + "", "usounds", "madljda");
+                    java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + "192.168.1.80:55024/CML;" + "", "usounds", "madljda");
                     Statement st = conexion.createStatement();
 
                     ResultSet rs = st.executeQuery("cml.dbo.spp_CargaPeriodosDosMeses");

@@ -94,7 +94,7 @@ public static String tienda="";
         jLabel3.setInheritsPopupMenu(false);
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 190, 190));
 
-        jLabel2.setText("Ver 1.0");
+        jLabel2.setText("Corona 1.0");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 60, -1));
 
         lblconexions.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -210,13 +210,11 @@ public static String tienda="";
     }//GEN-LAST:event_btndesconectarActionPerformed
 
     private void btncontinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuarActionPerformed
-        try {
+        
             CambiaVenta cv = new CambiaVenta();
-            cv.setVisible(true);
+           cv.setVisible(true);
             this.dispose();
-        } catch (ParseException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         
     }//GEN-LAST:event_btncontinuarActionPerformed
 
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
