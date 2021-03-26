@@ -19,9 +19,9 @@ public class Main extends javax.swing.JFrame {
 public static String IPSUCURSAL="";
 public static String sucursalnombre="";
 public static String tienda="";
-    /**
-     * Creates new form Main
-     */
+     
+
+
     public Main() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
@@ -192,40 +192,31 @@ public static String tienda="";
         jctiendas.setEnabled(false);
         lblconexion.setText("CONECTADO");
         lblconexion.setForeground(Color.GREEN);
-    //    System.out.println("conectado a  " + sucursalnombre);
-        // JOptionPane.showMessageDialog(null, "seleccionaste: " + jcsucursales.getSelectedItem().toString());  
-        //     final ImageIcon icon = new ImageIcon("C:\\Users\\AGONZALEZ\\Downloads/correcto.png");
-        //   JOptionPane.showMessageDialog(null, "Seleccionaste: "+ jcsucursales.getSelectedItem().toString(), "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
         btnconectar.setEnabled(false);
-        /*   CambiaVenta cv = new CambiaVenta();
-         cv.setVisible(true);
-         this.dispose();*/
+  
     }//GEN-LAST:event_btnconectarActionPerformed
 
     private void btndesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesconectarActionPerformed
         // TODO add your handling code here:
 
         jctiendas.setEnabled(true);
-          btnavanzado.setEnabled(false);
+        btnavanzado.setEnabled(false);
         lblconexion.setText("DESCONECTADO");
         lblconexion.setForeground(Color.red);
         btnconectar.setEnabled(true);
-     //   System.out.println("Desconectandose de .. " + sucursalnombre);
         IPSUCURSAL = "";
         btncontinuar.setEnabled(false);
 
     }//GEN-LAST:event_btndesconectarActionPerformed
 
     private void btncontinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuarActionPerformed
-    try {
-        CambiaVenta cv = new CambiaVenta();
-        cv.setVisible(true);
-        this.dispose();
-    } catch (ParseException ex) {
-        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-
+        try {
+            CambiaVenta cv = new CambiaVenta();
+            cv.setVisible(true);
+            this.dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btncontinuarActionPerformed
 
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
@@ -235,7 +226,7 @@ public static String tienda="";
     private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
         MenuAvanzado m = new MenuAvanzado();
         m.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_btnavanzadoActionPerformed
 
     /**

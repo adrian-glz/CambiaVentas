@@ -6,6 +6,7 @@
 package cambiaventas;
 
 import static cambiaventas.Main.IPSUCURSAL;
+import static cambiaventas.Main.sucursalnombre;
 import static cambiaventas.Main.tienda;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -20,8 +21,13 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -40,6 +46,11 @@ public class EliminaPolizas extends javax.swing.JFrame {
 
     public EliminaPolizas() {
         initComponents();
+        estructuratablapolizas();
+        estructuratablapolizasinfo();
+        
+        txtsucursal.setText(sucursalnombre);
+         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
     }
 
     /**
@@ -209,10 +220,10 @@ public class EliminaPolizas extends javax.swing.JFrame {
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String f1 = sdf.format(txtfecha1.getDate());
-        if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar las ventas de " + f1 + " ????!!!", " ATENCION!!! ",
+        if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar la poliza de " + f1 + " ????!!!", " ATENCION!!! ",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             eliminapolizas();
-            eliminapolizasinformacion();
+            
         } else {
            // System.out.println("no hacer nada");
         }
@@ -240,7 +251,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
                 }
                 int cont = md.getRowCount();
                 if (cont == 0) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron registros en la tabla ventas con fecha de " + pruebafecha);
+                    JOptionPane.showMessageDialog(null, "No se encontraron registros en la tabla de polizas con fecha de " + pruebafecha);
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -274,7 +285,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
                 }
                 int cont = md.getRowCount();
                 if (cont == 0) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron registros en ventaspagos con la fecha de: " + pruebafecha);
+                    JOptionPane.showMessageDialog(null, "No se encontraron registros en polizasinformacion con la fecha de: " + pruebafecha);
                 }
 
             } catch (SQLException ex) {
@@ -305,6 +316,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
+                eliminapolizasinformacion();
                 /// JOptionPane.showMessageDialog(null, "¡Se eliminaron las ventas  : " +f1);
                 st.close();
                 //historialeliminado();              
@@ -316,6 +328,148 @@ public class EliminaPolizas extends javax.swing.JFrame {
         }
     }
     
+     public void estructuratablapolizas() {
+        jtpolizas.getTableHeader().setReorderingAllowed(false);
+
+        String data[][] = {};
+        String cabeza[] = {"Sucursal","Fecha", "Poliza", "Cuenta", "Linea", "Descripcion", "Debe", "Haber", "Estatus"};
+
+        md = new DefaultTableModel(data, cabeza) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column != 9) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+        jtpolizas.setModel(md);
+        JTableHeader th;
+        th = jtpolizas.getTableHeader();
+        th.setFont(new java.awt.Font("Italic", 0, 14));
+        TableCellRenderer rendererFromHeader = jtpolizas.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        jtpolizas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        jtpolizas.getColumnModel().getColumn(0).setPreferredWidth(50); //1
+        jtpolizas.getColumnModel().getColumn(0).setMaxWidth(140);
+        jtpolizas.getColumnModel().getColumn(0).setMinWidth(70);
+
+        jtpolizas.getColumnModel().getColumn(1).setPreferredWidth(80); //2
+        jtpolizas.getColumnModel().getColumn(1).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(1).setMinWidth(80);
+
+        jtpolizas.getColumnModel().getColumn(2).setPreferredWidth(110); //3
+        jtpolizas.getColumnModel().getColumn(2).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(2).setMinWidth(110);
+
+        jtpolizas.getColumnModel().getColumn(3).setPreferredWidth(90); //4
+        jtpolizas.getColumnModel().getColumn(3).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(3).setMinWidth(90);
+
+        jtpolizas.getColumnModel().getColumn(4).setPreferredWidth(80); //ARTIVULO
+        jtpolizas.getColumnModel().getColumn(4).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(4).setMinWidth(80);
+
+        jtpolizas.getColumnModel().getColumn(5).setPreferredWidth(150); //NOMNBRE DE CAJE
+        jtpolizas.getColumnModel().getColumn(5).setMaxWidth(250);
+        jtpolizas.getColumnModel().getColumn(5).setMinWidth(150);
+
+        jtpolizas.getColumnModel().getColumn(6).setPreferredWidth(120); //NOMNBRE DE CAJE
+        jtpolizas.getColumnModel().getColumn(6).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(6).setMinWidth(120);
+
+        jtpolizas.getColumnModel().getColumn(7).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtpolizas.getColumnModel().getColumn(7).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(7).setMinWidth(50);
+        
+        jtpolizas.getColumnModel().getColumn(8).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtpolizas.getColumnModel().getColumn(8).setMaxWidth(200);
+        jtpolizas.getColumnModel().getColumn(8).setMinWidth(50);
+
+        //BTNGENERAR.setEnabled(false);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL
+        //  ImageIcon imgIcon = new ImageIcon(getClass().getResource("/RECURSOS/Left.png"));
+        //  Image imgEscalada = imgIcon.getImage().getScaledInstance(BTNATRAS.getWidth(),
+        //         BTNATRAS.getHeight(), Image.SCALE_SMOOTH);
+        //    Icon iconoEscalado = new ImageIcon(imgEscalada);
+        // BTNATRAS.setIcon(iconoEscalado);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
+    }
+     public void estructuratablapolizasinfo() {
+        jtpolizasinformacion.getTableHeader().setReorderingAllowed(false);
+
+        String data[][] = {};
+        String cabeza[] = {"Sucursal","Fecha", "Poliza", "Nomina", "morralla", "faltantes", "Sobrantes", "pesos1", "pesos2"};
+
+        md = new DefaultTableModel(data, cabeza) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column != 9) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+        jtpolizasinformacion.setModel(md);
+        JTableHeader th;
+        th = jtpolizasinformacion.getTableHeader();
+        th.setFont(new java.awt.Font("Italic", 0, 14));
+        TableCellRenderer rendererFromHeader = jtpolizasinformacion.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        jtpolizasinformacion.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        jtpolizasinformacion.getColumnModel().getColumn(0).setPreferredWidth(50); //1
+        jtpolizasinformacion.getColumnModel().getColumn(0).setMaxWidth(140);
+        jtpolizasinformacion.getColumnModel().getColumn(0).setMinWidth(70);
+
+        jtpolizasinformacion.getColumnModel().getColumn(1).setPreferredWidth(80); //2
+        jtpolizasinformacion.getColumnModel().getColumn(1).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(1).setMinWidth(80);
+
+        jtpolizasinformacion.getColumnModel().getColumn(2).setPreferredWidth(110); //3
+        jtpolizasinformacion.getColumnModel().getColumn(2).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(2).setMinWidth(110);
+
+        jtpolizasinformacion.getColumnModel().getColumn(3).setPreferredWidth(90); //4
+        jtpolizasinformacion.getColumnModel().getColumn(3).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(3).setMinWidth(90);
+
+        jtpolizasinformacion.getColumnModel().getColumn(4).setPreferredWidth(80); //ARTIVULO
+        jtpolizasinformacion.getColumnModel().getColumn(4).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(4).setMinWidth(80);
+
+        jtpolizasinformacion.getColumnModel().getColumn(5).setPreferredWidth(150); //NOMNBRE DE CAJE
+        jtpolizasinformacion.getColumnModel().getColumn(5).setMaxWidth(250);
+        jtpolizasinformacion.getColumnModel().getColumn(5).setMinWidth(150);
+
+        jtpolizasinformacion.getColumnModel().getColumn(6).setPreferredWidth(120); //NOMNBRE DE CAJE
+        jtpolizasinformacion.getColumnModel().getColumn(6).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(6).setMinWidth(120);
+
+        jtpolizasinformacion.getColumnModel().getColumn(7).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtpolizasinformacion.getColumnModel().getColumn(7).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(7).setMinWidth(50);
+        
+        jtpolizasinformacion.getColumnModel().getColumn(8).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtpolizasinformacion.getColumnModel().getColumn(8).setMaxWidth(200);
+        jtpolizasinformacion.getColumnModel().getColumn(8).setMinWidth(50);
+
+        //BTNGENERAR.setEnabled(false);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL
+        //  ImageIcon imgIcon = new ImageIcon(getClass().getResource("/RECURSOS/Left.png"));
+        //  Image imgEscalada = imgIcon.getImage().getScaledInstance(BTNATRAS.getWidth(),
+        //         BTNATRAS.getHeight(), Image.SCALE_SMOOTH);
+        //    Icon iconoEscalado = new ImageIcon(imgEscalada);
+        // BTNATRAS.setIcon(iconoEscalado);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
+    }
     public void eliminapolizasinformacion() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String f1 = sdf.format(txtfecha1.getDate());
@@ -328,7 +482,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
-                ///JOptionPane.showMessageDialog(null, "¡Se elimino  ventaspagos : " + f1);
+                JOptionPane.showMessageDialog(null, "¡Se elimino  las polizas : " + f1);
                 st.close();
                 //historialeliminado();              
             }

@@ -20,6 +20,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,18 +41,65 @@ public class EliminaVentas extends javax.swing.JFrame {
      */
     public EliminaVentas() {
         initComponents();
+         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
+    }
+    public void eliminaventas() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String f1 = sdf.format(txtfecha1.getDate());
+
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+            Statement st = conexion.createStatement();
+            String query = "delete from ventas where fecha= '" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja + "'";
+
+            ps = conexion.prepareStatement(query);
+            int n = ps.executeUpdate();
+            if (n > 0) {
+                /// JOptionPane.showMessageDialog(null, "¡Se eliminaron las ventas  : " +f1);
+                st.close();
+                //historialeliminado();              
+            }
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error en la base de datos");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void eliminaventaspagos() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String f1 = sdf.format(txtfecha1.getDate());
+        try {
+
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
+            Statement st = conexion.createStatement();
+            String query = " delete from ventaspagos where fecha='" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja + "'";
+            ps = conexion.prepareStatement(query);
+            int n = ps.executeUpdate();
+            if (n > 0) {
+                ///JOptionPane.showMessageDialog(null, "¡Se elimino  ventaspagos : " + f1);
+                st.close();
+                //historialeliminado();              
+            }
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error en la base de datos");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void cargavistaventas() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
-       // System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
+        // System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
-  
-           rs = st.executeQuery("select * from ventas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
+
+            rs = st.executeQuery("select * from ventas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
             md = (DefaultTableModel) jtventas.getModel();
             md.setRowCount(0);
             try {
@@ -80,7 +128,7 @@ public class EliminaVentas extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
 
-       try {
+        try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
@@ -109,7 +157,8 @@ public class EliminaVentas extends javax.swing.JFrame {
             Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      @SuppressWarnings("unchecked")
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -269,65 +318,20 @@ public class EliminaVentas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡Selecciona una fecha para cambiar!");
         }
     }//GEN-LAST:event_btnvisualizarActionPerformed
-    public void eliminaventas() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String f1 = sdf.format(txtfecha1.getDate());
 
-        try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
-            Statement st = conexion.createStatement();
-            String query = "delete from ventas where fecha= '" + f1 + "' and sucursal='"+tienda+"' and caja='" + spcaja + "'";
-
-            ps = conexion.prepareStatement(query);
-            int n = ps.executeUpdate();
-            if (n > 0) {
-                /// JOptionPane.showMessageDialog(null, "¡Se eliminaron las ventas  : " +f1);
-                st.close();
-                //historialeliminado();              
-            }
-        } catch (HeadlessException | SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Error en la base de datos");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void eliminaventaspagos() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String f1 = sdf.format(txtfecha1.getDate());
-      try {
-
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
-            Statement st = conexion.createStatement();
-            String query = " delete from ventaspagos where fecha='" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja + "'";
-            ps = conexion.prepareStatement(query);
-            int n = ps.executeUpdate();
-            if (n > 0) {
-                ///JOptionPane.showMessageDialog(null, "¡Se elimino  ventaspagos : " + f1);
-                st.close();
-                //historialeliminado();              
-            }
-        } catch (HeadlessException | SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Error en la base de datos");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     private void btncambiarventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambiarventasActionPerformed
-     Date date = txtfecha1.getDate();
+        Date date = txtfecha1.getDate();
         if (date != null) {
-         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String f1 = sdf.format(txtfecha1.getDate());
-        if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar las ventas de " + f1 + " ????!!!", " ATENCION!!! ",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            eliminaventas();
-            eliminaventaspagos();
-        } else {
-          //  System.out.println("no hacer nada");
-        }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String f1 = sdf.format(txtfecha1.getDate());
+            if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar las ventas de " + f1 + " ????!!!", " ATENCION!!! ",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                eliminaventas();
+                eliminaventaspagos();
+            } else {
+                //  System.out.println("no hacer nada");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "¡Selecciona una fecha para cambiar!");
         }
