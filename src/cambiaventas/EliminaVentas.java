@@ -6,6 +6,7 @@
 package cambiaventas;
 
 import static cambiaventas.Main.IPSUCURSAL;
+import static cambiaventas.Main.sucursalnombre;
 import static cambiaventas.Main.tienda;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -21,8 +22,12 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -42,7 +47,144 @@ public class EliminaVentas extends javax.swing.JFrame {
     public EliminaVentas() {
         initComponents();
          setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
+          estructuratablaventas();//
+        estructuratablaventaspagos();
+              txtsucursal.setText(sucursalnombre);
+         
     }
+      public void estructuratablaventas() {
+        jtventas.getTableHeader().setReorderingAllowed(false);
+
+      //  setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
+        String data[][] = {};
+        String cabeza[] = {"FOLIO", "ARTICULO", "FECHA", "SUCURSAL", "CAJA", "CODIGO", "PRECIO NETO", "CLAVE VENTA", "HORA"};
+
+         md = new DefaultTableModel(data, cabeza) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column != 9) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }; 
+        jtventas.setModel(md);
+        JTableHeader th;
+        th = jtventas.getTableHeader();
+        th.setFont(new java.awt.Font("Italic", 0, 14));
+        TableCellRenderer rendererFromHeader = jtventas.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        jtventas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        jtventas.getColumnModel().getColumn(0).setPreferredWidth(50); //1
+        jtventas.getColumnModel().getColumn(0).setMaxWidth(140);
+        jtventas.getColumnModel().getColumn(0).setMinWidth(70);
+
+        jtventas.getColumnModel().getColumn(1).setPreferredWidth(80); //2
+        jtventas.getColumnModel().getColumn(1).setMaxWidth(200);
+        jtventas.getColumnModel().getColumn(1).setMinWidth(80);
+
+        jtventas.getColumnModel().getColumn(2).setPreferredWidth(110); //3
+        jtventas.getColumnModel().getColumn(2).setMaxWidth(200);
+        jtventas.getColumnModel().getColumn(2).setMinWidth(110);
+
+        jtventas.getColumnModel().getColumn(3).setPreferredWidth(90); //4
+        jtventas.getColumnModel().getColumn(3).setMaxWidth(200);
+        jtventas.getColumnModel().getColumn(3).setMinWidth(90);
+
+        jtventas.getColumnModel().getColumn(4).setPreferredWidth(80); //ARTIVULO
+        jtventas.getColumnModel().getColumn(4).setMaxWidth(80);
+        jtventas.getColumnModel().getColumn(4).setMinWidth(80);
+
+        jtventas.getColumnModel().getColumn(5).setPreferredWidth(150); //NOMNBRE DE CAJE
+        jtventas.getColumnModel().getColumn(5).setMaxWidth(250);
+        jtventas.getColumnModel().getColumn(5).setMinWidth(150);
+
+        jtventas.getColumnModel().getColumn(6).setPreferredWidth(120); //NOMNBRE DE CAJE
+        jtventas.getColumnModel().getColumn(6).setMaxWidth(200);
+        jtventas.getColumnModel().getColumn(6).setMinWidth(120);
+
+        jtventas.getColumnModel().getColumn(7).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtventas.getColumnModel().getColumn(7).setMaxWidth(50);
+        jtventas.getColumnModel().getColumn(7).setMinWidth(50);
+
+        jtventas.getColumnModel().getColumn(8).setPreferredWidth(50); //NOMNBRE DE CAJE
+        jtventas.getColumnModel().getColumn(8).setMaxWidth(50);
+        jtventas.getColumnModel().getColumn(8).setMinWidth(50);
+
+        //BTNGENERAR.setEnabled(false);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL
+        //  ImageIcon imgIcon = new ImageIcon(getClass().getResource("/RECURSOS/Left.png"));
+        //  Image imgEscalada = imgIcon.getImage().getScaledInstance(BTNATRAS.getWidth(),
+        //         BTNATRAS.getHeight(), Image.SCALE_SMOOTH);
+        //    Icon iconoEscalado = new ImageIcon(imgEscalada);
+        // BTNATRAS.setIcon(iconoEscalado);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
+    }
+
+    public void estructuratablaventaspagos() {
+        jtventaspagos.getTableHeader().setReorderingAllowed(false);
+
+        String data[][] = {};
+        String cabeza[] = {"FECHA", "SUCURSAL", "CAJA", "CLAVE PAGO", "FOLIO", "IMPORTE"};
+
+       md2 = new DefaultTableModel(data, cabeza) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column != 6) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };  
+        jtventaspagos.setModel(md2);
+        JTableHeader th;
+        th = jtventaspagos.getTableHeader();
+        th.setFont(new java.awt.Font("Italic", 0, 14));
+        TableCellRenderer rendererFromHeader = jtventaspagos.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        jtventaspagos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        jtventaspagos.getColumnModel().getColumn(0).setPreferredWidth(200); //CAJA
+        jtventaspagos.getColumnModel().getColumn(0).setMaxWidth(200);
+        jtventaspagos.getColumnModel().getColumn(0).setMinWidth(200);
+
+        jtventaspagos.getColumnModel().getColumn(1).setPreferredWidth(100); //FOLIO
+        jtventaspagos.getColumnModel().getColumn(1).setMaxWidth(200);
+        jtventaspagos.getColumnModel().getColumn(1).setMinWidth(100);
+
+        jtventaspagos.getColumnModel().getColumn(2).setPreferredWidth(100); //COD
+        jtventaspagos.getColumnModel().getColumn(2).setMaxWidth(120);
+        jtventaspagos.getColumnModel().getColumn(2).setMinWidth(100);
+
+        jtventaspagos.getColumnModel().getColumn(3).setPreferredWidth(80); //PRECIO
+        jtventaspagos.getColumnModel().getColumn(3).setMaxWidth(100);
+        jtventaspagos.getColumnModel().getColumn(3).setMinWidth(80);
+
+        jtventaspagos.getColumnModel().getColumn(4).setPreferredWidth(80); //ARTIVULO
+        jtventaspagos.getColumnModel().getColumn(4).setMaxWidth(80);
+        jtventaspagos.getColumnModel().getColumn(4).setMinWidth(100);
+
+        jtventaspagos.getColumnModel().getColumn(5).setPreferredWidth(200); //NOMNBRE DE CAJE
+        jtventaspagos.getColumnModel().getColumn(5).setMaxWidth(250);
+        jtventaspagos.getColumnModel().getColumn(5).setMinWidth(200);
+
+        //BTNGENERAR.setEnabled(false);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL
+        //  ImageIcon imgIcon = new ImageIcon(getClass().getResource("/RECURSOS/Left.png"));
+        //  Image imgEscalada = imgIcon.getImage().getScaledInstance(BTNATRAS.getWidth(),
+        //         BTNATRAS.getHeight(), Image.SCALE_SMOOTH);
+        //    Icon iconoEscalado = new ImageIcon(imgEscalada);
+        // BTNATRAS.setIcon(iconoEscalado);
+        ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
+    }
+
     public void eliminaventas() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String f1 = sdf.format(txtfecha1.getDate());
@@ -51,7 +193,7 @@ public class EliminaVentas extends javax.swing.JFrame {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
-            String query = "delete from ventas where fecha= '" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja + "'";
+            String query = "delete from ventas where fecha= '" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja.getValue() + "'";
 
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
@@ -75,7 +217,7 @@ public class EliminaVentas extends javax.swing.JFrame {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
-            String query = " delete from ventaspagos where fecha='" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja + "'";
+            String query = " delete from ventaspagos where fecha='" + f1 + "' and sucursal='" + tienda + "' and caja='" + spcaja.getValue() + "'";
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
@@ -98,8 +240,9 @@ public class EliminaVentas extends javax.swing.JFrame {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
-
-            rs = st.executeQuery("select * from ventas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
+            System.out.println("CAJA="+spcaja);
+            rs = st.executeQuery("select * from ventas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "' and caja='"+spcaja.getValue()+"' ");
+           // System.out.println("select * from ventas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "' and '"+spcaja.getValue()+"' );
             md = (DefaultTableModel) jtventas.getModel();
             md.setRowCount(0);
             try {
@@ -110,7 +253,7 @@ public class EliminaVentas extends javax.swing.JFrame {
                 }
                 int cont = md.getRowCount();
                 if (cont == 0) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron registros en la tabla ventas con fecha de " + pruebafecha);
+                    JOptionPane.showMessageDialog(null, "No se encontraron registros en la tabla ventas con fecha de " + pruebafecha +" y caja "+spcaja.getValue());
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -133,7 +276,7 @@ public class EliminaVentas extends javax.swing.JFrame {
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
 
-            rs = st.executeQuery("select fecha,sucursal,caja,clavepago,folio, importe  from ventaspagos where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
+            rs = st.executeQuery("select fecha,sucursal,caja,clavepago,folio, importe  from ventaspagos where fecha='" + pruebafecha + "' and sucursal='" + tienda + "' and CAJA='"+spcaja.getValue()+"' ");
             md = (DefaultTableModel) jtventaspagos.getModel();
             md.setRowCount(0);
             try {
@@ -144,7 +287,7 @@ public class EliminaVentas extends javax.swing.JFrame {
                 }
                 int cont = md.getRowCount();
                 if (cont == 0) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron registros en ventaspagos con la fecha de: " + pruebafecha);
+                    JOptionPane.showMessageDialog(null, "No se encontraron registros en ventaspagos con la fecha de: " + pruebafecha+" y caja"+spcaja.getValue());
                 }
 
             } catch (SQLException ex) {
