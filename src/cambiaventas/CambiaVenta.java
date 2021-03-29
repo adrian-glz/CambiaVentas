@@ -463,7 +463,7 @@ public static String sucursalglobal="";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
 
-        System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
+        System.out.println("prueba fecha"+pruebafecha+ "  tienda>"+tienda);
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
