@@ -869,7 +869,8 @@ public class MenuAvanzado extends javax.swing.JFrame {
                         progressBar.setIndeterminate(false);///PROGRESSBAR
                         dialog.dispose();//PROGRESSBAR
                         // JOptionPane.showMessageDialog(null, "Se ha corrido lista codigos apartados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                        listacodigosusadoscompraoficinas();
+                      JOptionPane.showMessageDialog(null, "Se ha finalizado el proceso", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
                     }
@@ -943,7 +944,8 @@ public class MenuAvanzado extends javax.swing.JFrame {
                         progressBar.setIndeterminate(false);///PROGRESSBAR
                         dialog.dispose();//PROGRESSBAR
                         // JOptionPane.showMessageDialog(null, "Se ha corrido lista codigos usados compra", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                        listacodigosusadosventaoficinas();
+                         JOptionPane.showMessageDialog(null, "Se ha finalizado el proceso", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
                     }
@@ -1015,7 +1017,7 @@ public class MenuAvanzado extends javax.swing.JFrame {
                     if (respuesta.equals(e.getMessage())) {
                         progressBar.setIndeterminate(false);///PROGRESSBAR
                         dialog.dispose();//PROGRESSBAR
-                        JOptionPane.showMessageDialog(null, "Se ha finalizado el proceso", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                     //   JOptionPane.showMessageDialog(null, "Se ha finalizado el proceso", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "ERROR!!!!!!!" + e.getMessage());
