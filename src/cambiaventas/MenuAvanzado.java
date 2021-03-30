@@ -150,7 +150,12 @@ public class MenuAvanzado extends javax.swing.JFrame {
     }//GEN-LAST:event_btneliminarpolizaActionPerformed
 
     private void btnoficinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnoficinasActionPerformed
-     cargaperiododosmesesoficinas();
+        if (JOptionPane.showConfirmDialog(null, "vas a actualizar las existencias de oficinas estas seguro de continuar? \n (Estas no se reflejaran en oficinas hasta que actualize la informacion en 1.80 )", " ATENCION!!! ",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            cargaperiododosmesesoficinas();
+        } else {
+            System.out.println("");
+        }
     }//GEN-LAST:event_btnoficinasActionPerformed
     
         public void cargaperiododosmeses() {

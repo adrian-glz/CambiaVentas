@@ -197,24 +197,19 @@ public static String tienda="";
     }//GEN-LAST:event_btnconectarActionPerformed
 
     private void btndesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesconectarActionPerformed
-        // TODO add your handling code here:
-
-        jctiendas.setEnabled(true);
+       jctiendas.setEnabled(true);
         btnavanzado.setEnabled(false);
         lblconexion.setText("DESCONECTADO");
         lblconexion.setForeground(Color.red);
         btnconectar.setEnabled(true);
         IPSUCURSAL = "";
         btncontinuar.setEnabled(false);
-
     }//GEN-LAST:event_btndesconectarActionPerformed
 
     private void btncontinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuarActionPerformed
-        
-            CambiaVenta cv = new CambiaVenta();
-           cv.setVisible(true);
-            this.dispose();
-         
+        CambiaVenta cv = new CambiaVenta();
+        cv.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btncontinuarActionPerformed
 
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
