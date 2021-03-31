@@ -44,12 +44,11 @@ public class EliminaPolizas extends javax.swing.JFrame {
     public EliminaPolizas() {
         initComponents();
         estructuratablapolizas();
-        estructuratablapolizasinfo();       
+        estructuratablapolizasinfo();
         txtsucursal.setText(sucursalnombre);
         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -198,21 +197,22 @@ public class EliminaPolizas extends javax.swing.JFrame {
     private void btnvisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvisualizarActionPerformed
         Date date = txtfecha1.getDate();
         if (date != null) {
-           cargavistapreviapolizas();
-           cargavistapreviapolizasinformacion();
+            cargavistapreviapolizas();
+            cargavistapreviapolizasinformacion();
         } else {
             JOptionPane.showMessageDialog(null, "¡Selecciona una fecha para cambiar!");
         }
     }//GEN-LAST:event_btnvisualizarActionPerformed
 
     private void btncambiarventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambiarventasActionPerformed
-     Date date = txtfecha1.getDate();
+        Date date = txtfecha1.getDate();
         if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String f1 = sdf.format(txtfecha1.getDate());
             if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar la poliza de " + f1 + " ????!!!", " ATENCION!!! ",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 eliminapolizas();
+                eliminapolizasinformacion();
             } else {
                 // System.out.println("no hacer nada");
             }
@@ -220,16 +220,16 @@ public class EliminaPolizas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡Selecciona una fecha para cambiar!");
         }
     }//GEN-LAST:event_btncambiarventasActionPerformed
- public void cargavistapreviapolizas() {
+    public void cargavistapreviapolizas() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
-       // System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
+        // System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
-  
-           rs = st.executeQuery("select * from polizas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
+
+            rs = st.executeQuery("select * from polizas  where fecha='" + pruebafecha + "' and sucursal='" + tienda + "'  ");
             md = (DefaultTableModel) jtpolizas.getModel();
             md.setRowCount(0);
             try {
@@ -252,13 +252,13 @@ public class EliminaPolizas extends javax.swing.JFrame {
             Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
- 
+
     public void cargavistapreviapolizasinformacion() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
 
-       try {
+        try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             st = conexion.createStatement();
@@ -269,7 +269,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             try {
 
                 while (rs.next()) {
-                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9) };
+                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9)};
                     md.addRow(fila);
                 }
                 int cont = md.getRowCount();
@@ -305,7 +305,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
-                eliminapolizasinformacion();
+               
                 /// JOptionPane.showMessageDialog(null, "¡Se eliminaron las ventas  : " +f1);
                 st.close();
                 //historialeliminado();              
@@ -316,12 +316,12 @@ public class EliminaPolizas extends javax.swing.JFrame {
             Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public void estructuratablapolizas() {
+
+    public void estructuratablapolizas() {
         jtpolizas.getTableHeader().setReorderingAllowed(false);
 
         String data[][] = {};
-        String cabeza[] = {"Sucursal","Fecha", "Poliza", "Cuenta", "Linea", "Descripcion", "Debe", "Haber", "Estatus"};
+        String cabeza[] = {"Sucursal", "Fecha", "Poliza", "Cuenta", "Linea", "Descripcion", "Debe", "Haber", "Estatus"};
 
         md = new DefaultTableModel(data, cabeza) {
             @Override
@@ -374,7 +374,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
         jtpolizas.getColumnModel().getColumn(7).setPreferredWidth(50); //NOMNBRE DE CAJE
         jtpolizas.getColumnModel().getColumn(7).setMaxWidth(200);
         jtpolizas.getColumnModel().getColumn(7).setMinWidth(50);
-        
+
         jtpolizas.getColumnModel().getColumn(8).setPreferredWidth(50); //NOMNBRE DE CAJE
         jtpolizas.getColumnModel().getColumn(8).setMaxWidth(200);
         jtpolizas.getColumnModel().getColumn(8).setMinWidth(50);
@@ -388,11 +388,12 @@ public class EliminaPolizas extends javax.swing.JFrame {
         // BTNATRAS.setIcon(iconoEscalado);
         ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
     }
-     public void estructuratablapolizasinfo() {
+
+    public void estructuratablapolizasinfo() {
         jtpolizasinformacion.getTableHeader().setReorderingAllowed(false);
 
         String data[][] = {};
-        String cabeza[] = {"Sucursal","Fecha", "Poliza", "Nomina", "morralla", "faltantes", "Sobrantes", "pesos1", "pesos2"};
+        String cabeza[] = {"Sucursal", "Fecha", "Poliza", "Nomina", "morralla", "faltantes", "Sobrantes", "pesos1", "pesos2"};
 
         md = new DefaultTableModel(data, cabeza) {
             @Override
@@ -445,7 +446,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
         jtpolizasinformacion.getColumnModel().getColumn(7).setPreferredWidth(50); //NOMNBRE DE CAJE
         jtpolizasinformacion.getColumnModel().getColumn(7).setMaxWidth(200);
         jtpolizasinformacion.getColumnModel().getColumn(7).setMinWidth(50);
-        
+
         jtpolizasinformacion.getColumnModel().getColumn(8).setPreferredWidth(50); //NOMNBRE DE CAJE
         jtpolizasinformacion.getColumnModel().getColumn(8).setMaxWidth(200);
         jtpolizasinformacion.getColumnModel().getColumn(8).setMinWidth(50);
@@ -459,6 +460,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
         // BTNATRAS.setIcon(iconoEscalado);
         ///************ESCALABLIDAD DE ICONO DE IMAGEN EN BOGTONO O LABEL ---AQUI TERMINA
     }
+
     public void eliminapolizasinformacion() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String f1 = sdf.format(txtfecha1.getDate());
@@ -481,6 +483,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             Logger.getLogger(EliminaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * @param args the command line arguments
      */

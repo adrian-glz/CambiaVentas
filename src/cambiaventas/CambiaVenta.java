@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cambiaventas;
 
 import static cambiaventas.Main.IPSUCURSAL;
@@ -39,11 +34,12 @@ import javax.swing.table.TableCellRenderer;
  * @author agonzalez
  */
 public class CambiaVenta extends javax.swing.JFrame {
-public static String sucursalglobal="";
-    
+
+    public static String sucursalglobal = "";
+
     Statement st;
     ResultSet rs;
-    DefaultTableModel md,md2;
+    DefaultTableModel md, md2;
     PreparedStatement ps = null;
     GregorianCalendar gg = new GregorianCalendar();
 
@@ -52,26 +48,25 @@ public static String sucursalglobal="";
      */
     public CambiaVenta() {
         initComponents();
-        undiaantes(); 
+        undiaantes();
         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
         txtsucursal.setText("" + sucursalnombre);
-        txtsucursal.setForeground(Color.blue); 
+        txtsucursal.setForeground(Color.blue);
         estructuratablaventas();//
         estructuratablaventaspagos();
-      
+
         //fecha1
         SimpleDateFormat dd = new SimpleDateFormat("yyyy/MM/dd");
         String fechadisplay = dd.format(gg.getTime());
         txtfecha1.setDate(gg.getTime());
-    } 
+    }
 
     public void undiaantes() {
         try {
             /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
              String f1 = sdf.format(txtfecha1.getDate());
              LocalDate date = LocalDate.parse(f1);
-             LocalDate ayer = date.minusDays(1);
-        
+             LocalDate ayer = date.minusDays(1);        
              txtfecha2.setDate(date.minusDays(1));*/
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             String d = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -94,7 +89,7 @@ public static String sucursalglobal="";
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
-            System.out.println("809" + txtfecha2);
+            // System.out.println("809" + txtfecha2);
 
             ps = conexion.prepareStatement("update ventas set fecha='" + f2 + "' where fecha='" + f1 + "' and sucursal='" + tienda + "'");
 
@@ -197,7 +192,7 @@ public static String sucursalglobal="";
             Statement st = conexion.createStatement();
 
             ps = conexion.prepareStatement("select * into cmlbak.dbo.ventas_" + fr.trim() + " from ventas where sucursal='" + tienda + "'");
-            System.out.println("--->" + ps);
+            // System.out.println("--->" + ps);
 
             int n = ps.executeUpdate();
             if (n > 0) {
@@ -218,7 +213,6 @@ public static String sucursalglobal="";
         String pruebafecha = sdf.format(txtfecha2.getDate());
         String fr = pruebafecha.toString().replaceAll("[^0-9]", "");
         try {
-
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
@@ -244,7 +238,6 @@ public static String sucursalglobal="";
         String pruebafecha = sdf.format(txtfecha2.getDate());
         String fr = pruebafecha.toString().replaceAll("[^0-9]", "");
         try {
-
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
             Statement st = conexion.createStatement();
@@ -269,7 +262,6 @@ public static String sucursalglobal="";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebaf = sdf.format(txtfecha2.getDate());
         String fr = pruebaf.toString().replaceAll("[^0-9]", "");
-
         try {
 
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
@@ -277,8 +269,7 @@ public static String sucursalglobal="";
             Statement st = conexion.createStatement();
 
             ps = conexion.prepareStatement("select * into cmlbak.dbo.ventas_" + fr.trim() + "r" + " from ventas where sucursal='" + tienda + "'");
-            System.out.println("--->" + ps);
-
+            // System.out.println("--->" + ps);
             int n = ps.executeUpdate();
             if (n > 0) {
                 //        JOptionPane.showMessageDialog(null, "se completo el respaldo ventas");
@@ -536,7 +527,7 @@ public static String sucursalglobal="";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String pruebafecha = sdf.format(txtfecha1.getDate());
 
-        System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
+        //System.out.println("prueba fecha" + pruebafecha + "  tienda>" + tienda);
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://" + IPSUCURSAL + "", "usounds", "madljda");
@@ -840,12 +831,12 @@ public static String sucursalglobal="";
             String f2 = sdf.format(txtfecha2.getDate());
             if (JOptionPane.showConfirmDialog(null, " Estas seguro de cambiar las ventas de " + f1 + " a " + f2 + " ????!!!", " ATENCION!!! ",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                System.out.println("808>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+f1+f2);
+                //    System.out.println("808>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+f1+f2);
                 updateventas();
                 updateventaspagos();
                 modificacionescancelaciones();
                 if (checkDevoluciones.isSelected()) {
-                    System.out.println("CORRIENDO QUERY DEVOLUCIONES");
+                    //  System.out.println("CORRIENDO QUERY DEVOLUCIONES");
                     devoluciones();
                 }
                 respaldo();
@@ -855,7 +846,7 @@ public static String sucursalglobal="";
                 borrarmodificacionescancelaciones();
                 JOptionPane.showMessageDialog(null, "Se han cambiado las ventas exitosamente!!!");
             } else {
-                System.out.println("no hacer nada");
+                //   System.out.println("no hacer nada");
             }
             // 
         } else {
@@ -876,7 +867,7 @@ public static String sucursalglobal="";
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
         Main m = new Main();
         m.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
 
     /**
