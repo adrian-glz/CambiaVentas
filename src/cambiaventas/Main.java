@@ -95,7 +95,7 @@ public static String tienda="";
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 190, 190));
 
         jLabel2.setText("Corona 1.0");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 60, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, 80, -1));
 
         lblconexions.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblconexions.setText("Estatus :");
