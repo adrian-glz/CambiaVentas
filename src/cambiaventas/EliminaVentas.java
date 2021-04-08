@@ -221,7 +221,7 @@ public class EliminaVentas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
-                ///JOptionPane.showMessageDialog(null, "¡Se elimino  ventaspagos : " + f1);
+               JOptionPane.showMessageDialog(null, "¡Se eliminarons  las ventas : " + f1);
                 st.close();
                 //historialeliminado();              
             }
