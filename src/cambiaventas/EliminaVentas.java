@@ -45,14 +45,15 @@ public class EliminaVentas extends javax.swing.JFrame {
      * Creates new form EliminaVentas
      */
     public EliminaVentas() {
+        
         initComponents();
-         setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
-          estructuratablaventas();//
+        setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
+        estructuratablaventas();//
         estructuratablaventaspagos();
-              txtsucursal.setText(sucursalnombre);
-         
+        txtsucursal.setText(sucursalnombre);
     }
-      public void estructuratablaventas() {
+
+    public void estructuratablaventas() {
         jtventas.getTableHeader().setReorderingAllowed(false);
 
       //  setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
