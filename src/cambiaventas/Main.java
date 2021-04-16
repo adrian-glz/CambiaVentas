@@ -183,7 +183,7 @@ public static String tienda="";
             // Podemos tener cualquier número de declaraciones de casos o case
             // debajo se encuentra la declaración predeterminada, que se usa cuando ninguno de los casos es verdadero.
             // No se necesita descanso en el case default
-            default:
+                        default:
             // Declaraciones
         }
 
