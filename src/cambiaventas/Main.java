@@ -197,7 +197,7 @@ public static String tienda="";
     }//GEN-LAST:event_btnconectarActionPerformed
 
     private void btndesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesconectarActionPerformed
-       jctiendas.setEnabled(true);
+        jctiendas.setEnabled(true);
         btnavanzado.setEnabled(false);
         lblconexion.setText("DESCONECTADO");
         lblconexion.setForeground(Color.red);
