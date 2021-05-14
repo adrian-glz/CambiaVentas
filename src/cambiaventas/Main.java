@@ -16,11 +16,10 @@ import javax.swing.ImageIcon;
  * @author agonzalez
  */
 public class Main extends javax.swing.JFrame {
-public static String IPSUCURSAL="";
-public static String sucursalnombre="";
-public static String tienda="";
-     
 
+    public static String IPSUCURSAL = "";
+    public static String sucursalnombre = "";
+    public static String tienda = "";
 
     public Main() {
         initComponents();
@@ -69,7 +68,7 @@ public static String tienda="";
         getContentPane().add(btncapturar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 280, 50));
 
         jctiendas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jctiendas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29 WALMART", "26  AMAZON LOGISTICA", "27 AMAZON ON SITE", "28 LINIO", "23 SOUNDS MX" }));
+        jctiendas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29 WALMART", "26 AMAZON LOGISTICA", "27 AMAZON ON SITE", "28 LINIO", "23 SOUNDS MX", "30 COPPEL" }));
         jctiendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jctiendasActionPerformed(evt);
@@ -94,7 +93,7 @@ public static String tienda="";
         jLabel3.setInheritsPopupMenu(false);
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 190, 190));
 
-        jLabel2.setText("Corona 1.0");
+        jLabel2.setText("Corona 1.1");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, 80, -1));
 
         lblconexions.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -149,37 +148,43 @@ public static String tienda="";
     private void btnconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconectarActionPerformed
        
         String expresionenpantalla = jctiendas.getSelectedItem().toString();
-        String expresionfiltrada = jctiendas.getSelectedItem().toString().replaceAll("[^1-2-3-4-5-6-7-8-9]", "");
+        String expresionfiltrada = jctiendas.getSelectedItem().toString().replaceAll("[^0-9]", "");
 
         int opc = Integer.parseInt(expresionfiltrada);
         conexion p = new conexion();
         switch (opc) {
-                        case 26:
-				IPSUCURSAL = "192.168.1.96:64493/CML;";    
-                                sucursalnombre="AMAZON LOGISTICA";
-                                tienda="26";
-				break;
-			case 27:
-				IPSUCURSAL = "192.168.1.97:61998/CML;"; 
-                                sucursalnombre="AMAZON ON SITE";
-                                tienda="27";
-				break;
-			case 28:
-				IPSUCURSAL = "192.168.1.98:49684/CML;";
-                                sucursalnombre="LINIO"; 
-                                tienda="28";
-				break;
-			case 29:
-				IPSUCURSAL = "192.168.1.95:52261/CML;";
-                                sucursalnombre="WAL MART";  
-                                tienda="29";
-				break;
-			case 23:
-				IPSUCURSAL = "192.168.1.90:58891/CML;";
-                                sucursalnombre="SOUNDS MX";
-                                tienda="23";
-				break;
-	 
+            case 26:
+                IPSUCURSAL = "192.168.1.96:64493/CML;";
+                sucursalnombre = "AMAZON LOGISTICA";
+                tienda = "26";
+                break;
+            case 27:
+                IPSUCURSAL = "192.168.1.97:61998/CML;";
+                sucursalnombre = "AMAZON ON SITE";
+                tienda = "27";
+                break;
+            case 28:
+                IPSUCURSAL = "192.168.1.98:49684/CML;";
+                sucursalnombre = "LINIO";
+                tienda = "28";
+                break;
+            case 29:
+                IPSUCURSAL = "192.168.1.95:52261/CML;";
+                sucursalnombre = "WALMART";
+                tienda = "29";
+                break;
+            case 30:
+                IPSUCURSAL = "192.168.1.99:54579/CML;";
+                sucursalnombre = "COPPEL";
+                tienda = "30";
+                break;
+            case 23:
+                IPSUCURSAL = "192.168.1.90:58891/CML;";
+                sucursalnombre = "SOUNDS MX";
+                tienda = "23";
+                break;
+
+
             // Podemos tener cualquier número de declaraciones de casos o case
             // debajo se encuentra la declaración predeterminada, que se usa cuando ninguno de los casos es verdadero.
             // No se necesita descanso en el case default
@@ -193,7 +198,7 @@ public static String tienda="";
         lblconexion.setText("CONECTADO");
         lblconexion.setForeground(Color.GREEN);
         btnconectar.setEnabled(false);
-  
+      
     }//GEN-LAST:event_btnconectarActionPerformed
 
     private void btndesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesconectarActionPerformed
@@ -210,6 +215,7 @@ public static String tienda="";
         CambiaVenta cv = new CambiaVenta();
         cv.setVisible(true);
         this.dispose();
+       
     }//GEN-LAST:event_btncontinuarActionPerformed
 
     private void jctiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctiendasActionPerformed
