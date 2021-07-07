@@ -212,7 +212,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(null, " Estas seguro de eliminar la poliza de " + f1 + " ????!!!", " ATENCION!!! ",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 eliminapolizas();
-               
+                 eliminapolizasinformacion();
             } else {
                 // System.out.println("no hacer nada");
             }
@@ -305,7 +305,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
-                eliminapolizasinformacion();
+              
               // JOptionPane.showMessageDialog(null, "¡Se eliminaron las polizas  : " +f1);
                 st.close();
                 //historialeliminado();              
@@ -473,7 +473,7 @@ public class EliminaPolizas extends javax.swing.JFrame {
             ps = conexion.prepareStatement(query);
             int n = ps.executeUpdate();
             if (n > 0) {
-                JOptionPane.showMessageDialog(null, "¡Se elimino  las polizas : " + f1);
+                JOptionPane.showMessageDialog(null, "¡Se elimino  la informacion de  polizas : " + f1);
                 st.close();
                 //historialeliminado();              
             }

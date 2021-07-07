@@ -58,7 +58,7 @@ public class EliminaVentas extends javax.swing.JFrame {
 
       //  setIconImage(new ImageIcon(getClass().getResource("/recursos/logochico.png")).getImage());
         String data[][] = {};
-        String cabeza[] = {"FOLIO", "ARTICULO", "FECHA", "SUCURSAL", "CAJA", "CODIGO", "PRECIO NETO", "CLAVE VENTA", "HORA"};
+        String cabeza[] = {"FECHA", "SUCURSAL", "FOLIO", "CAJA", "ARTICULO", "CODIGO", "GRUPO", "CANTIDAD", "COSTOREPOSICION"};
 
          md = new DefaultTableModel(data, cabeza) {
             @Override
@@ -249,7 +249,7 @@ public class EliminaVentas extends javax.swing.JFrame {
             try {
 
                 while (rs.next()) {
-                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), "$" + rs.getString(7), rs.getString(8), rs.getString(9)};
+                    Object[] fila = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),  rs.getString(7), rs.getString(8), rs.getString(11)};
                     md.addRow(fila);
                 }
                 int cont = md.getRowCount();
